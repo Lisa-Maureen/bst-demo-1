@@ -17,7 +17,10 @@ public class BstController {
     @GetMapping("/betriebsstelle/{code}")
     public Bst one(@PathVariable String code) {
         Bst bst = bstProvider.findByCode(code.toUpperCase());
-        System.out.println(bst); //zur Kontrolle
+        System.out.println(bst);                                //zur Kontrolle
+        if (bst == null) {
+            throw new BstNotFoundException(code);
+        }
         return bst;
     }
 }

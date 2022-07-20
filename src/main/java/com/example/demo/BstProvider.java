@@ -3,7 +3,6 @@ package com.example.demo;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,9 +18,8 @@ public class BstProvider{
 
         bstMap = new HashMap<>();
 
-        try {
-            FileReader fr = new FileReader(filepath);
-            BufferedReader br = new BufferedReader(fr);
+        try (BufferedReader br = new BufferedReader(new FileReader(filepath))){
+
             String line;
             line = br.readLine();       //1. Zeile abschneiden (Spaltennamen)
             System.out.println(line);   //1. Zeile ausgeben (zur Kontrolle)
@@ -41,11 +39,9 @@ public class BstProvider{
             System.out.println(bstMap.get("xaps".toUpperCase()));
             System.out.println(bstMap.get("xapw".toUpperCase()));*/
         }
-        catch(FileNotFoundException e){
-            System.out.println("Diese Datei existiert nicht!");
-        }
+
         catch(IOException e) {
-            System.out.println("Fehler beim Lesen: "+e.getMessage());
+            System.out.println("Fehler beim Lesen: " + e.getMessage());
         }
     }
 
